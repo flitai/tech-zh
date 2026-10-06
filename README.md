@@ -1,6 +1,6 @@
 # tech-zh
 
-`tech-zh` 是一个面向中文技术文档的 Codex skill。它用于生成、改写和审查低歧义、可执行、可验证的中文文本。
+`tech-zh` 是一个面向中文技术文档的 Agent Skill，兼容 Codex 和 Claude Code。它用于生成、改写和审查低歧义、可执行、可验证的中文文本。
 
 本 skill 借鉴 ASD-STE100 Issue 9 的受控语言思想，并根据中文语法重新制定规则。它不是 ASD-STE100 的官方中文版本、翻译件或认证工具。
 
@@ -39,6 +39,8 @@
 
 ## 安装
 
+### Codex
+
 将本仓库放入 Codex 的个人 skill 目录：
 
 ```text
@@ -59,13 +61,62 @@ ln -s /absolute/path/to/tech-zh ~/.codex/skills/tech-zh
 
 安装后，刷新 Codex 的 skill 列表或新建会话。
 
+### Claude Code
+
+将本仓库放入 Claude Code 的个人 skill 目录：
+
+```text
+~/.claude/skills/tech-zh
+```
+
+可以直接克隆：
+
+```bash
+git clone https://github.com/flitai/tech-zh.git ~/.claude/skills/tech-zh
+```
+
+也可以创建符号链接：
+
+```bash
+ln -s /absolute/path/to/tech-zh ~/.claude/skills/tech-zh
+```
+
+Claude Code 也支持项目级安装。将本仓库放入项目的下列目录：
+
+```text
+.claude/skills/tech-zh
+```
+
+安装后，新建 Claude Code 会话。Claude Code 会根据 `description` 自动选择本 skill，也可以通过 `/tech-zh` 直接调用。
+
+Claude Code 的 skill 位置、调用方式和项目级安装规则见 [Claude Code Skills 官方文档](https://code.claude.com/docs/en/skills)。
+
+### 同时用于两个工具
+
+可以只保留一份仓库，并分别创建符号链接：
+
+```bash
+git clone https://github.com/flitai/tech-zh.git ~/tech-zh
+mkdir -p ~/.codex/skills ~/.claude/skills
+ln -s ~/tech-zh ~/.codex/skills/tech-zh
+ln -s ~/tech-zh ~/.claude/skills/tech-zh
+```
+
 ## 使用
 
-调用名称：
+Codex 调用方式：
 
 ```text
 $tech-zh
 ```
+
+Claude Code 调用方式：
+
+```text
+/tech-zh
+```
+
+以下示例使用 Codex 调用语法。在 Claude Code 中，将 `$tech-zh` 替换为 `/tech-zh`。
 
 生成技术需求：
 
@@ -122,6 +173,7 @@ tech-zh/
 ```
 
 - [SKILL.md](SKILL.md)：skill 入口、核心规则和工作流程。
+- [agents/openai.yaml](agents/openai.yaml)：Codex 的可选界面元数据；Claude Code 不依赖该文件。
 - [references/chinese-rules.md](references/chinese-rules.md)：完整的中文技术写作规则。
 - [references/asd-mapping.md](references/asd-mapping.md)：ASD-STE100 规则与中文规则的映射。
 - [references/examples.md](references/examples.md)：中文改写示例。
