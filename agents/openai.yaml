@@ -1,0 +1,4 @@
+interface:
+  display_name: "受控中文技术写作"
+  short_description: "生成、改写并审查低歧义、可执行、可验证的中文技术文档"
+  default_prompt: "使用 $tech-zh 生成或改写这份中文技术文档。"
